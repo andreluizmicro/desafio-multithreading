@@ -1,6 +1,8 @@
 package aplication
 
 import (
+	"context"
+
 	repository "github.com/andreluizmicro/desafio-multithreading/internal/infrastructure/repository"
 )
 
@@ -22,9 +24,8 @@ func NewCepService(repository *repository.CepRepository) *CepService {
 	}
 }
 
-func (service *CepService) SearchCEP(input InputDTO) (*OutputDTO, error) {
-
-	cep, err := service.repository.SearchCEP(input.Cep)
+func (service *CepService) SearchCEP(ctx *context.Context, input InputDTO) (*OutputDTO, error) {
+	cep, err := service.repository.SearchCEP(ctx, input.Cep)
 	if err != nil {
 		return nil, err
 	}

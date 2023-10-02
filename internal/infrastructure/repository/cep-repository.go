@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -47,7 +47,7 @@ func NewCepRepository() *CepRepository {
 	return &CepRepository{}
 }
 
-func (repository *CepRepository) SearchCEP(cep string) (*entity.Cep, error) {
+func (repository *CepRepository) SearchCEP(ctx *context.Context, cep string) (*entity.Cep, error) {
 
 	chViaCepApi := make(chan entity.Cep)
 	chApiCep := make(chan entity.Cep)
@@ -57,10 +57,10 @@ func (repository *CepRepository) SearchCEP(cep string) (*entity.Cep, error) {
 
 	select {
 	case cepFound := <-chViaCepApi:
-		fmt.Println("VIA CEP")
+		*ctx = context.WithValue(*ctx, "api", "VIA CEP API")
 		return &cepFound, nil
 	case cepFound := <-chApiCep:
-		fmt.Println("API CEP")
+		*ctx = context.WithValue(*ctx, "api", "API DE CEP")
 		return &cepFound, nil
 	case <-time.After(time.Second * 1):
 		return nil, errors.New("timeout")

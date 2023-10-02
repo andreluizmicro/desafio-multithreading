@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -14,6 +15,8 @@ func main() {
 }
 
 func SearchCEP(w http.ResponseWriter, r *http.Request) {
+	ctx := context.Background()
+
 	cepRepository := repository.NewCepRepository()
 	service := aplication.NewCepService(cepRepository)
 
@@ -21,10 +24,10 @@ func SearchCEP(w http.ResponseWriter, r *http.Request) {
 		Cep: r.URL.Query().Get("cep"),
 	}
 
-	cep, err := service.SearchCEP(input)
+	cep, err := service.SearchCEP(&ctx, input)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(cep.Cep)
+	fmt.Printf("cep: %s - api: %s\n", cep.Cep, ctx.Value("api"))
 }
