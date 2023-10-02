@@ -3,6 +3,7 @@ package repository
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -56,8 +57,10 @@ func (repository *CepRepository) SearchCEP(cep string) (*entity.Cep, error) {
 
 	select {
 	case cepFound := <-chViaCepApi:
+		fmt.Println("VIA CEP")
 		return &cepFound, nil
 	case cepFound := <-chApiCep:
+		fmt.Println("API CEP")
 		return &cepFound, nil
 	case <-time.After(time.Second * 1):
 		return nil, errors.New("timeout")
@@ -94,7 +97,7 @@ func buscaViaCep(cep string, ch chan<- entity.Cep) error {
 }
 
 func buscaApiCep(cep string, ch chan<- entity.Cep) error {
-	req, err := http.Get(API_CEP + "/" + cep + "/json")
+	req, err := http.Get(API_CEP + "/" + cep + ".json")
 	if err != nil {
 		return err
 	}
