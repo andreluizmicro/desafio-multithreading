@@ -29,5 +29,6 @@ func SearchCEP(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	fmt.Printf("cep: %s - api: %s\n", cep.Cep, ctx.Value("api"))
+	fmt.Printf("Retorno da api: %s\n", ctx.Value("api"))
+	fmt.Printf("cep: %s\nstate: %s\ncity: %s\ndistrict: %s\nAddress: %s\n", cep.Cep, cep.State, cep.City, cep.Districit, cep.Address)
 }

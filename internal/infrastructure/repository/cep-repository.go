@@ -112,6 +112,10 @@ func buscaApiCep(cep string, ch chan<- entity.Cep) error {
 	var response JsonResponseApiCep
 	json.Unmarshal(data, &response)
 
+	if response.Status != http.StatusOK {
+		return errors.New("erro ao tentar realizar a request")
+	}
+
 	cepFound := entity.Cep{
 		Cep:       response.Code,
 		State:     response.State,

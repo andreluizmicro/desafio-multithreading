@@ -11,7 +11,11 @@ type InputDTO struct {
 }
 
 type OutputDTO struct {
-	Cep string `json:"cep"`
+	Cep       string `json:"cep"`
+	State     string `json:"state"`
+	City      string `json:"city"`
+	Districit string `json:"district"`
+	Address   string `json:"address"`
 }
 
 type CepService struct {
@@ -31,6 +35,10 @@ func (service *CepService) SearchCEP(ctx *context.Context, input InputDTO) (*Out
 	}
 
 	return &OutputDTO{
-		Cep: cep.Cep,
+		Cep:       cep.Cep,
+		State:     cep.State,
+		City:      cep.City,
+		Districit: cep.Districit,
+		Address:   cep.Address,
 	}, nil
 }
