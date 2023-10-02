@@ -2,7 +2,7 @@
 
 1. Para rodar o projeto basta acessar o terminal e digitar o comando:
 
-    go run cmd/main.go
+        go run cmd/main.go
 
 2. Agora basta acessar a url http://localhost:8080?cep=37505-464, um cep deve ser informado no mesmo formato do exemplo da url.
 
