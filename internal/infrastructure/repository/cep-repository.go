@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	API_CEP     = "https://cdn.apicep.com/file/apicep/"
+	API_CEP     = "https://cdn.apicep.com/file/apicep"
 	VIA_CEP_API = "http://viacep.com.br/ws"
 )
 
